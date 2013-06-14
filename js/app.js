@@ -1,14 +1,23 @@
 App = Ember.Application.create();
 
 App.EditorController = Ember.Controller.extend({
-  js: (
+  js: localStorage['js'] || (
     'App = Ember.Application.create();'
   ),
-  html: (
+
+  html: localStorage['html'] || (
     '<script type="text/x-handlebars">\n' +
     '  <h1>Hello, world!</h1>\n' +
     '</script>'
-  )
+  ),
+
+  jsDidChange: function() {
+    localStorage.js = this.get('js');
+  }.observes('js'),
+
+  htmlDidChange: function() {
+    localStorage.html = this.get('html');
+  }.observes('html')
 });
 
 App.ViewerController = Ember.Controller.extend({
@@ -29,7 +38,6 @@ App.AceView = Ember.View.extend({
   classNames: ['ace-view'],
 
   didInsertElement: function() {
-    // setup ACE...
     var editor = ace.edit(this.get('element')),
         session = editor.getSession();
 
@@ -49,10 +57,6 @@ App.AceView = Ember.View.extend({
   editorDidChange: function() {
     var editor = this.get('editor');
     this.set('value', editor.getValue());
-  },
-
-  willDestroyElement: function() {
-    // teardown ACE...
   }
 });
 
