@@ -27,7 +27,7 @@
 
 .editor {
   right: auto;
-  width: 600px;
+  width: 33.333%
 }
 
 .editor .main {
@@ -49,7 +49,7 @@
 }
 
 .viewer {
-  left: 600px;
+  left: 33.333%;
 }
 
 .frame {
