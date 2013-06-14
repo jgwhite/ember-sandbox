@@ -2,7 +2,7 @@ App = Ember.Application.create();
 
 App.EditorController = Ember.Controller.extend({
   js: localStorage['js'] || (
-    'App = Ember.Application.create();'
+    'App = Ember.Application.create();\n\n'
   ),
 
   html: localStorage['html'] || (
@@ -48,6 +48,9 @@ App.AceView = Ember.View.extend({
     session.setTabSize(2);
 
     editor.setValue(this.get('value'));
+
+    editor.getSelection().clearSelection();
+    if (this.get('focus')) { editor.focus() }
 
     editor.on('change', $.proxy(this, 'editorDidChange'));
 
