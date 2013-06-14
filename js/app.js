@@ -86,7 +86,7 @@ App.FrameView = Ember.View.extend({
   didInsertElement: function() {
     Ember.run.later(this, function() {
       this.notifyPropertyChange('content');
-    }, 500);
+    }, 1000);
   }
 });
 
