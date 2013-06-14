@@ -1,0 +1,25 @@
+.pane {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.global {
+  position: fixed;
+}
+
+.pane header {
+  padding: 0.5em;
+
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0px 1px 1px white;
+
+  background: linear-gradient(#eee, #ccc);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.pane .main {
+  position: absolute;
+  top: 2em; right: 0; bottom: 0; left: 0;
+  overflow: hidden;
+}

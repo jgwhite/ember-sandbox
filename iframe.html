@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ember Sandbox iframe</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+  <script>
+    window.addEventListener('message', didReceiveMessage, false);
+
+    function didReceiveMessage(event) {
+      var data = event.data;
+
+      if (window.Ember) {
+        loadData(data);
+      } else {
+        $(function() { loadData(data) });
+      }
+    }
+
+    function loadData(data) {
+      destroyApps();
+      document.body.innerHTML = event.data.html;
+      eval(event.data.js);
+    }
+
+    function destroyApps() {
+      for (var name in window) {
+        try {
+          var obj = window[name];
+          if (obj && obj.constructor === Ember.Application) obj.destroy();
+        } catch (error) {}
+      }
+    }
+  </script>
+
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/handlebars.js"></script>
+  <script src="js/libs/ember.js"></script>
+
+</body>
+</html>
