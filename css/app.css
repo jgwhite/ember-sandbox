@@ -82,7 +82,7 @@
 .pane .main {
   position: absolute;
   top: 3em; right: 0; bottom: 0; left: 0;
-  overflow: hidden;
+  overflow: auto;
   z-index: 1;
 }
 
