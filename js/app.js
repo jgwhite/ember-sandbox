@@ -19,9 +19,9 @@ App.IndexRoute = Ember.Route.extend({
 App.ApplicationController = Ember.Controller.extend({
   init: function() {
     this.setProperties({
-      js: localStorage['js'] || App.DEFAULT_JS,
-      hbs: localStorage['hbs'] || App.DEFAULT_HBS,
-      css: localStorage['css'] || App.DEFAULT_CSS,
+      js: localStorage.js || App.DEFAULT_JS,
+      hbs: localStorage.hbs || App.DEFAULT_HBS,
+      css: localStorage.css || App.DEFAULT_CSS,
     });
   },
 
@@ -93,7 +93,7 @@ App.AceView = Ember.View.extend({
 App.FrameView = Ember.View.extend({
   tagName: 'iframe',
   src: 'iframe.html',
-  classNames: ['pane frame'],
+  classNames: ['pane', 'frame'],
   attributeBindings: ['src'],
 
   contentDidChange: function() {
