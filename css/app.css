@@ -53,7 +53,7 @@
   text-align: center;
 }
 
-.pane header a {
+.pane header nav a {
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0);
   padding: 3px 8px 2px 8px;
@@ -66,7 +66,7 @@
   color: rgb(246, 236, 232);
 }
 
-.pane header a.active {
+.pane header nav a.active {
   border: 1px solid rgb(146, 60, 46);
   border-radius: 3px;
 
@@ -103,10 +103,20 @@
   left: 38.2%;
 }
 
-#viewer header img {
+#viewer header .ember-link {
   position: absolute;
-  top: 10%; right: 1em;
-  height: 80%;
+  top: 0; right: 0; bottom: 0; left: auto;
+  padding: 0 0.618em;
+}
+
+#viewer header .ember-link img {
+  display: block;
+  margin: 0;
+  height: 100%;
+}
+
+#viewer header .ember-link:active img {
+  opacity: 0.75;
 }
 
 .ace-view {
