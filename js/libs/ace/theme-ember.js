@@ -98,14 +98,10 @@ color:#FD971F;\
 .ace-ember .ace_keyword.ace_operator {\
 color: rgb(104, 118, 135);\
 }\
-.ace-ember .ace_comment {\
-color: #236e24;\
-}\
-.ace-ember .ace_comment.ace_doc {\
-color: #236e24;\
-}\
+.ace-ember .ace_comment,\
+.ace-ember .ace_comment.ace_doc,\
 .ace-ember .ace_comment.ace_doc.ace_tag {\
-color: #236e24;\
+color: rgb(180, 180, 180);\
 }\
 .ace-ember .ace_constant.ace_numeric {\
 color: rgb(0, 0, 205);\

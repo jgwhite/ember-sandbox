@@ -128,7 +128,8 @@ App.DEFAULT_JS = (
  'App = Ember.Application.create();\n\n' +
  'App.Router.map(function() {\n' +
  '  this.route(\'about\');\n' +
- '});'
+ '});\n\n' +
+ '// Your code here...'
 )
 
 App.DEFAULT_HBS = (
