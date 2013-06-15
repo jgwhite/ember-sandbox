@@ -9,28 +9,41 @@
 <body>
 
   <script type="text/x-handlebars">
-    {{render editor}}
-    {{render viewer}}
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="editor">
-    <header>Editor</header>
-    <section class="main">
-      <section class="pane js-pane">
-        {{ace valueBinding="js" mode="javascript" focus=true}}
+    <section class="pane global" id="editor">
+      <header>
+        Editor
+        &mdash;
+        {{#linkTo js}}JS{{/linkTo}}
+        /
+        {{#linkTo hbs}}HBS{{/linkTo}}
+        /
+        {{#linkTo css}}CSS{{/linkTo}}
+      </header>
+      <section class="main">
+        {{outlet}}
       </section>
+    </section>
 
-      <section class="pane html-pane">
-        {{ace valueBinding="html" mode="html"}}
+    <section class="pane global" id="viewer">
+      <header>
+        Viewer
+      </header>
+      <section class="main">
+        {{frame jsBinding="js" hbsBinding="hbs" cssBinding="css"}}
       </section>
     </section>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="viewer">
-    <header>Viewer</header>
-    <section class="main">
-      {{frame jsBinding="js" htmlBinding="html"}}
-    </section>
+  <script type="text/x-handlebars" data-template-name="js">
+    {{ace valueBinding="js" mode="javascript"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="hbs">
+    {{ace valueBinding="hbs" mode="html"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="css">
+    {{ace valueBinding="css" mode="css"}}
   </script>
 
   <script src="js/libs/jquery.js"></script>

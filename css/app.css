@@ -1,6 +1,7 @@
 .pane {
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
+  overflow: hidden;
 }
 
 .global {
@@ -8,6 +9,8 @@
 }
 
 .pane header {
+  position: absolute;
+  top: 0; right: 0; bottom: auto; left: 0;
   padding: 0.5em;
 
   font-weight: bold;
@@ -17,39 +20,47 @@
   background: -webkit-linear-gradient(#eee, #ccc);
   background: linear-gradient(#eee, #ccc);
   color: rgba(0, 0, 0, 0.8);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.pane header a {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.pane header a.active {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .pane .main {
   position: absolute;
   top: 2em; right: 0; bottom: 0; left: 0;
   overflow: hidden;
+  z-index: 1;
 }
 
-.editor {
+#editor {
   right: auto;
   width: 33.333%
 }
 
-.editor .main {
-  background: #333;
-  color: #fafafa;
+#editor header {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.editor .js-pane {
-  bottom: 50%;
+#editor .main {
+  border-right: 1px solid rgb(209, 209, 209);
 }
 
-.editor .html-pane {
-  top: 50%;
+#viewer {
+  left: 33.333%;
 }
 
 .ace-view {
   display: block;
   width: 100%; height: 100%;
-}
-
-.viewer {
-  left: 33.333%;
 }
 
 .frame {

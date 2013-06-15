@@ -5,30 +5,26 @@
   <title>Ember Sandbox iframe</title>
   <link rel="stylesheet" href="css/libs/normalize.css">
   <link rel="stylesheet" href="css/app.css">
-  <style>
-    body {
-      padding: 1em;
-    }
-  </style>
+  <style id="css"></style>
 </head>
 <body>
+
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/handlebars.js"></script>
+  <script src="js/libs/ember.js"></script>
 
   <script>
     window.addEventListener('message', didReceiveMessage, false);
 
     function didReceiveMessage(event) {
-      var data = event.data;
-
-      if (window.Ember) {
-        loadData(data);
-      } else {
-        $(function() { loadData(data) });
-      }
+      loadData(event.data);
     }
 
     function loadData(data) {
       destroyApps();
-      document.body.innerHTML = event.data.html;
+
+      $('#css').html(event.data.css);
+      $('body').html(event.data.hbs);
       eval(event.data.js);
     }
 
@@ -40,13 +36,7 @@
         } catch (error) {}
       }
     }
-  </script>
 
-  <script src="js/libs/jquery.js"></script>
-  <script src="js/libs/handlebars.js"></script>
-  <script src="js/libs/ember.js"></script>
-
-  <script>
     parent.postMessage('Ready!', '*');
   </script>
 
