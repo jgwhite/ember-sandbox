@@ -1,41 +1,5 @@
 App = Ember.Application.create();
 
-App.DEFAULT_JS = (
- 'App = Ember.Application.create();\n\n' +
- 'App.Router.map(function() {\n' +
- '  this.route(\'about\');\n' +
- '});'
-)
-
-App.DEFAULT_HBS = (
-  '<script type="text/x-handlebars">\n' +
-  '  <h1>Ember Sandbox</h1>\n\n' +
-  '  <nav>\n' +
-  '    {{#linkTo index}}Home{{/linkTo}}\n' +
-  '    {{#linkTo about}}About{{/linkTo}}\n' +
-  '  </nav>\n\n' +
-  '  {{outlet}}\n' +
-  '</script>\n\n' +
-  '<script type="text/x-handlebars" data-template-name="index">\n' +
-  '  <h2>Welcome</h2>\n' +
-  '  <p>Edit the bits of your app on left and see the result right here.</p>\n' +
-  '  <p>All your code is kept in local storage, so it’ll be here when you get back.\n' +
-  '</script>\n\n' +
-  '<script type="text/x-handlebars" data-template-name="about">\n' +
-  '  <h2>About</h2>\n' +
-  '  <p>A little live editor for Ember, written in Ember.</p>\n' +
-  '</script>'
-)
-
-App.DEFAULT_CSS = (
-  'body {\n' +
-  '  padding: 1em;\n' +
-  '}\n\n' +
-  'nav .active {\n' +
-  '  font-weight: bold;\n' +
-  '}'
-)
-
 // Routes
 
 App.Router.map(function() {
@@ -53,9 +17,13 @@ App.IndexRoute = Ember.Route.extend({
 // Controllers
 
 App.ApplicationController = Ember.Controller.extend({
-  js: localStorage['js'] || App.DEFAULT_JS,
-  hbs: localStorage['hbs'] || App.DEFAULT_HBS,
-  css: localStorage['css'] || App.DEFAULT_CSS,
+  init: function() {
+    this.setProperties({
+      js: localStorage['js'] || App.DEFAULT_JS,
+      hbs: localStorage['hbs'] || App.DEFAULT_HBS,
+      css: localStorage['css'] || App.DEFAULT_CSS,
+    });
+  },
 
   jsDidChange: function() {
     localStorage.js = this.get('js');
@@ -154,3 +122,41 @@ App.FrameView = Ember.View.extend({
 
 Ember.Handlebars.helper('ace', App.AceView);
 Ember.Handlebars.helper('frame', App.FrameView);
+
+// Defaults
+
+App.DEFAULT_JS = (
+ 'App = Ember.Application.create();\n\n' +
+ 'App.Router.map(function() {\n' +
+ '  this.route(\'about\');\n' +
+ '});'
+)
+
+App.DEFAULT_HBS = (
+  '<script type="text/x-handlebars">\n' +
+  '  <h1>Ember Sandbox</h1>\n\n' +
+  '  <nav>\n' +
+  '    {{#linkTo index}}Home{{/linkTo}}\n' +
+  '    {{#linkTo about}}About{{/linkTo}}\n' +
+  '  </nav>\n\n' +
+  '  {{outlet}}\n' +
+  '</script>\n\n' +
+  '<script type="text/x-handlebars" data-template-name="index">\n' +
+  '  <h2>Welcome</h2>\n' +
+  '  <p>Edit the bits of your app on left and see the result right here.</p>\n' +
+  '  <p>All your code is kept in local storage, so it’ll be here when you get back.\n' +
+  '</script>\n\n' +
+  '<script type="text/x-handlebars" data-template-name="about">\n' +
+  '  <h2>About</h2>\n' +
+  '  <p>A little live editor for Ember, written in Ember.</p>\n' +
+  '</script>'
+)
+
+App.DEFAULT_CSS = (
+  'body {\n' +
+  '  padding: 1em;\n' +
+  '}\n\n' +
+  'nav .active {\n' +
+  '  font-weight: bold;\n' +
+  '}'
+)

@@ -88,7 +88,7 @@
 
 #editor {
   right: auto;
-  width: 33.333%
+  width: 38.2%;
 }
 
 #editor header {
@@ -100,7 +100,7 @@
 }
 
 #viewer {
-  left: 33.333%;
+  left: 38.2%;
 }
 
 .ace-view {
