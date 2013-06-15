@@ -30,7 +30,7 @@ App.ApplicationController = Ember.Controller.extend({
   }.observes('js'),
 
   hbsDidChange: function() {
-    localStorage.html = this.get('hbs');
+    localStorage.hbs = this.get('hbs');
   }.observes('hbs'),
 
   cssDidChange: function() {

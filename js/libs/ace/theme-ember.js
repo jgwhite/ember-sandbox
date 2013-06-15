@@ -43,10 +43,6 @@ border-right: 1px solid rgb(209, 209, 209);\
 background: rgb(246, 246, 246);\
 color: rgb(180, 180, 180);\
 overflow : hidden;\
-padding-top: 8px;\
-}\
-.ace-ember .ace_content {\
-padding-top: 8px;\
 }\
 .ace-ember .ace_print-margin {\
 width: 1px;\
@@ -139,7 +135,6 @@ background: rgba(0, 0, 0, 0.07);\
 }\
 .ace-ember .ace_gutter-active-line {\
 background-color : #dcdcdc;\
-margin-top: 8px;\
 }\
 .ace-ember .ace_marker-layer .ace_selected-word {\
 background: rgb(250, 250, 255);\
