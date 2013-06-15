@@ -97,8 +97,7 @@ App.FrameView = Ember.View.extend({
   attributeBindings: ['src'],
 
   contentDidChange: function() {
-    var el = this.get('element'),
-        contentWindow = el.contentWindow,
+    var contentWindow = this.get('element').contentWindow,
         content = this.get('content');
 
     Ember.run(function() { contentWindow.postMessage(content, '*') });
@@ -109,12 +108,12 @@ App.FrameView = Ember.View.extend({
   }.property('js', 'hbs', 'css'),
 
   didInsertElement: function() {
-    var self = this,
-        el = this.get('element');
+    $(window).on('message', $.proxy(this, 'messageReceived'));
+  },
 
-    $(window).one('message', function() {
-      self.notifyPropertyChange('content');
-    });
+  messageReceived: function(event) {
+    event = event.originalEvent;
+    if (event.data === 'Ready!') { this.notifyPropertyChange('content') }
   }
 });
 
