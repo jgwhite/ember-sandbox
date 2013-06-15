@@ -30,6 +30,9 @@ App.DEFAULT_HBS = (
 App.DEFAULT_CSS = (
   'body {\n' +
   '  padding: 1em;\n' +
+  '}\n\n' +
+  'nav .active {\n' +
+  '  font-weight: bold;\n' +
   '}'
 )
 

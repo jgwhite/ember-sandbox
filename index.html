@@ -11,13 +11,12 @@
   <script type="text/x-handlebars">
     <section class="pane global" id="editor">
       <header>
-        Editor
-        &mdash;
-        {{#linkTo js}}JS{{/linkTo}}
-        /
-        {{#linkTo hbs}}HBS{{/linkTo}}
-        /
-        {{#linkTo css}}CSS{{/linkTo}}
+        <span class="title">Editor</span>
+        <nav>
+          {{#linkTo js}}JS{{/linkTo}}
+          {{#linkTo hbs}}HBS{{/linkTo}}
+          {{#linkTo css}}CSS{{/linkTo}}
+        </nav>
       </header>
       <section class="main">
         {{outlet}}
@@ -26,7 +25,7 @@
 
     <section class="pane global" id="viewer">
       <header>
-        Viewer
+        <span class="title">Viewer</span>
       </header>
       <section class="main">
         {{frame jsBinding="js" hbsBinding="hbs" cssBinding="css"}}
