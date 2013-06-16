@@ -22,6 +22,7 @@
 
     function loadData(data) {
       destroyApps();
+      clearTemplates();
 
       $('#css').html(event.data.css);
       $('body').html(event.data.hbs);
@@ -32,9 +33,16 @@
       for (var name in window) {
         try {
           var obj = window[name];
-          if (obj && obj.constructor === Ember.Application) obj.destroy();
+          if (obj && obj.constructor === Ember.Application) {
+            obj.destroy();
+            delete window[name];
+          }
         } catch (error) {}
       }
+    }
+
+    function clearTemplates() {
+      Ember.TEMPLATES = {};
     }
 
     parent.postMessage('Ready!', '*');
