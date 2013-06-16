@@ -144,7 +144,7 @@ App.DEFAULT_HBS = (
   '<script type="text/x-handlebars" data-template-name="index">\n' +
   '  <h2>Welcome</h2>\n' +
   '  <p>Edit the code on the left and see the result right here.</p>\n' +
-  '  <p>All your code is kept in local storage, so it’ll be here when you get back.\n' +
+  '  <p>All your code is kept in local storage, so it’ll be here when you get back.</p>\n' +
   '</script>\n\n' +
   '<script type="text/x-handlebars" data-template-name="about">\n' +
   '  <h2>About</h2>\n' +
