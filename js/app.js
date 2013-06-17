@@ -14,17 +14,37 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-// Controllers
-
-App.ApplicationController = Ember.Controller.extend({
-  init: function() {
-    this.setProperties({
+App.ApplicationRoute = Ember.Route.extend({
+  model: function() {
+    return App.Sandbox.create({
       js: localStorage.js || App.DEFAULT_JS,
       hbs: localStorage.hbs || App.DEFAULT_HBS,
       css: localStorage.css || App.DEFAULT_CSS,
     });
-  },
+  }
+});
 
+App.JsRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('application');
+  }
+});
+
+App.HbsRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('application');
+  }
+});
+
+App.CssRoute = Ember.Route.extend({
+  model: function() {
+    return this.modelFor('application');
+  }
+});
+
+// Models
+
+App.Sandbox = Ember.Object.extend({
   jsDidChange: function() {
     localStorage.js = this.get('js');
   }.observes('js'),
@@ -37,18 +57,6 @@ App.ApplicationController = Ember.Controller.extend({
     localStorage.css = this.get('css');
   }.observes('css')
 });
-
-App.Controller = Ember.Controller.extend({
-  needs: ['application'],
-  jsBinding: 'controllers.application.js',
-  hbsBinding: 'controllers.application.hbs',
-  cssBinding: 'controllers.application.css'
-});
-
-App.ViewerController = App.Controller.extend();
-App.JsController = App.Controller.extend();
-App.HbsController = App.Controller.extend();
-App.CssController = App.Controller.extend();
 
 // Views
 
