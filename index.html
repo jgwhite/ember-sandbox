@@ -25,9 +25,7 @@
       <header>
         <span class="title">Editor</span>
         <nav>
-          {{#linkTo js}}JS{{/linkTo}}
-          {{#linkTo hbs}}HBS{{/linkTo}}
-          {{#linkTo css}}CSS{{/linkTo}}
+          {{outlet nav}}
         </nav>
       </header>
       <section class="main">
@@ -43,7 +41,7 @@
         </a>
       </header>
       <section class="main">
-        {{frame jsBinding="js" hbsBinding="hbs" cssBinding="css"}}
+        {{render viewer}}
       </section>
     </section>
 
@@ -52,15 +50,51 @@
     </footer>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="js">
+  <script type="text/x-handlbars" data-template-name="local">
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="local/nav">
+    {{#linkTo local.js}}JS{{/linkTo}}
+    {{#linkTo local.hbs}}HBS{{/linkTo}}
+    {{#linkTo local.css}}CSS{{/linkTo}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="gist">
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="gist/nav">
+    {{#linkTo gist.js}}JS{{/linkTo}}
+    {{#linkTo gist.hbs}}HBS{{/linkTo}}
+    {{#linkTo gist.css}}CSS{{/linkTo}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="viewer">
+    {{frame jsBinding="js" hbsBinding="hbs" cssBinding="css"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="local/js">
     {{ace valueBinding="js" mode="javascript"}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="hbs">
+  <script type="text/x-handlebars" data-template-name="local/hbs">
     {{ace valueBinding="hbs" mode="html"}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="css">
+  <script type="text/x-handlebars" data-template-name="local/css">
+    {{ace valueBinding="css" mode="css"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="gist/js">
+    {{ace valueBinding="js" mode="javascript"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="gist/hbs">
+    {{ace valueBinding="hbs" mode="html"}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="gist/css">
     {{ace valueBinding="css" mode="css"}}
   </script>
 

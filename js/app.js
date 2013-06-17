@@ -3,48 +3,64 @@ App = Ember.Application.create();
 // Routes
 
 App.Router.map(function() {
-  this.route('js');
-  this.route('hbs');
-  this.route('css');
+  this.resource('local', { path: '' }, function() {
+    this.route('js');
+    this.route('hbs');
+    this.route('css');
+  });
+
+  this.resource('gist', { path: ':user_login/:gist_id' }, function() {
+    this.route('js');
+    this.route('hbs');
+    this.route('css');
+  });
 });
 
-App.IndexRoute = Ember.Route.extend({
-  redirect: function() {
-    this.transitionTo('js');
+App.SandboxRoute = Ember.Route.extend({
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    this.controllerFor('editor', model).set('content', model);
+    this.controllerFor('viewer', model).set('content', model);
+  },
+
+  renderTemplate: function() {
+    this.render(this.routeName + '/nav', { outlet: 'nav' });
+    this.render();
   }
 });
 
-App.ApplicationRoute = Ember.Route.extend({
+App.LocalRoute = App.SandboxRoute.extend({
   model: function() {
     return App.Sandbox.create({
       js: localStorage.js || App.DEFAULT_JS,
       hbs: localStorage.hbs || App.DEFAULT_HBS,
-      css: localStorage.css || App.DEFAULT_CSS,
+      css: localStorage.css || App.DEFAULT_CSS
     });
+  },
+});
+
+App.GistRoute = App.SandboxRoute.extend({
+  model: function(params) {
+    return $.getJSON('https://api.github.com/gists/' + params.gist_id)
+    .then(function(gist) {
+      return App.Sandbox.create({
+        user_login: gist.user.login,
+        gist_id: gist.id,
+        js: gist.files['app.js'].content,
+        hbs: gist.files['templates.html'].content,
+        css: gist.files['style.css'].content
+      });
+    });
+  },
+
+  serialize: function(model) {
+    return model.getProperties('user_login', 'gist_id');
   }
 });
 
-App.JsRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('application');
-  }
-});
+// Controller
 
-App.HbsRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('application');
-  }
-});
-
-App.CssRoute = Ember.Route.extend({
-  model: function() {
-    return this.modelFor('application');
-  }
-});
-
-// Models
-
-App.Sandbox = Ember.Object.extend({
+App.LocalController = Ember.ObjectController.extend({
   jsDidChange: function() {
     localStorage.js = this.get('js');
   }.observes('js'),
@@ -57,6 +73,23 @@ App.Sandbox = Ember.Object.extend({
     localStorage.css = this.get('css');
   }.observes('css')
 });
+
+App.EditorResourceController = Ember.ObjectController.extend({
+  needs: ['editor'],
+  contentBinding: 'controllers.editor.content'
+});
+
+App.LocalJsController = App.EditorResourceController.extend();
+App.LocalHbsController = App.EditorResourceController.extend();
+App.LocalCssController = App.EditorResourceController.extend();
+
+App.GistJsController = App.EditorResourceController.extend();
+App.GistHbsController = App.EditorResourceController.extend();
+App.GistCssController = App.EditorResourceController.extend();
+
+// Models
+
+App.Sandbox = Ember.Object.extend();
 
 // Views
 
