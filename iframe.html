@@ -17,7 +17,7 @@
     window.addEventListener('message', didReceiveMessage, false);
 
     function didReceiveMessage(event) {
-      loadData(event.data);
+      Ember.run(function() { loadData(event.data) });
     }
 
     function loadData(data) {
@@ -26,6 +26,7 @@
 
       $('#css').html(event.data.css);
       $('body').html(event.data.hbs);
+
       eval(event.data.js);
     }
 
