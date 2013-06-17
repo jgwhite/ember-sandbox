@@ -39,6 +39,12 @@ App.LocalRoute = App.SandboxRoute.extend({
   },
 });
 
+App.LocalIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('local.js');
+  }
+});
+
 App.GistRoute = App.SandboxRoute.extend({
   model: function(params) {
     return $.getJSON('https://api.github.com/gists/' + params.gist_id)
@@ -55,6 +61,12 @@ App.GistRoute = App.SandboxRoute.extend({
 
   serialize: function(model) {
     return model.getProperties('user_login', 'gist_id');
+  }
+});
+
+App.GistIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('gist.js', this.modelFor('gist'));
   }
 });
 
