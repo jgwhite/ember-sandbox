@@ -13,6 +13,8 @@ App.AceView = Ember.View.extend({
   },
 
   _createEditor: function() {
+    ace.config.set('workerPath', 'js/libs/ace/');
+
     var editor = ace.edit(this.get('element')),
         session = editor.getSession();
 
