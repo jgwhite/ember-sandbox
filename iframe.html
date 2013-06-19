@@ -5,47 +5,51 @@
   <title>Ember Sandbox iframe</title>
   <link rel="stylesheet" href="css/libs/normalize.css">
   <style id="css"></style>
-</head>
-<body>
 
   <script src="js/deps.min.js"></script>
 
   <script>
     window.addEventListener('message', didReceiveMessage, false);
 
+    $(function() { parent.postMessage('Ready!', '*') });
+
     function didReceiveMessage(event) {
-      var data = event.data;
-      Ember.run(function() { loadData(data) });
+      loadData(event.data);
     }
 
     function loadData(data) {
       destroyApps();
-      clearTemplates();
 
-      $('#css').html(data.css);
-      $('body').html(data.hbs);
+      Ember.run(function() {
+        $('#css').html(data.css);
+        $('body').html(data.hbs);
 
-      eval(data.js);
+        eval(data.js);
+      });
     }
 
     function destroyApps() {
+      $(window).off();
+
       for (var name in window) {
         try {
           var obj = window[name];
+
           if (obj && obj.constructor === Ember.Application) {
             obj.destroy();
             delete window[name];
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
 
-    function clearTemplates() {
       Ember.TEMPLATES = {};
     }
-
-    parent.postMessage('Ready!', '*');
   </script>
+
+</head>
+<body>
 
 </body>
 </html>

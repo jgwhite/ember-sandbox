@@ -5,6 +5,8 @@ App.FrameView = Ember.View.extend({
   attributeBindings: ['src'],
 
   contentDidChange: function() {
+    if (!this.get('isReady')) return;
+
     var contentWindow = this.get('element').contentWindow,
         content = this.get('content');
 
@@ -20,7 +22,9 @@ App.FrameView = Ember.View.extend({
   },
 
   messageReceived: function(event) {
-    event = event.originalEvent;
-    if (event.data === 'Ready!') { this.notifyPropertyChange('content'); }
+    if (event.originalEvent.data === 'Ready!') {
+      this.set('isReady', true);
+      this.notifyPropertyChange('content');
+    }
   }
 });
