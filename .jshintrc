@@ -1,0 +1,5 @@
+{
+  "node": false,
+  "browser": true,
+  "sub": true
+}
