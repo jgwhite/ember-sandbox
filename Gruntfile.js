@@ -37,24 +37,11 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      ace: {
-        src: [
-          'js/libs/ace/ace.js',
-          'js/libs/ace/mode-css.js',
-          'js/libs/ace/mode-html.js',
-          'js/libs/ace/mode-javascript.js',
-          'js/libs/ace/worker-css.js',
-          'js/libs/ace/worker-javascript.js',
-          'js/libs/ace/theme-ember.js'
-        ],
-        dest: 'js/libs/ace.js'
-      },
       deps: {
         src: [
           'js/libs/jquery.js',
           'js/libs/handlebars.js',
-          'js/libs/ember.js',
-          'js/libs/ace.js'
+          'js/libs/ember.js'
         ],
         dest: 'js/deps.js'
       }
@@ -85,7 +72,6 @@ module.exports = function(grunt) {
     'jshint:app',
     'neuter:app',
     'emberTemplates',
-    'concat:ace',
     'concat:deps',
     'uglify:app'
   ]);
