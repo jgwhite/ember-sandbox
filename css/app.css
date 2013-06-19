@@ -108,6 +108,7 @@
 }
 
 #viewer header .ember-link {
+  display: block;
   position: absolute;
   top: 0; right: 0; bottom: 0; left: auto;
   padding: 0 8px;
@@ -115,8 +116,10 @@
 
 #viewer header .ember-link img {
   display: block;
+  position: relative;
   margin: 0;
-  height: 100%;
+  width: auto; height: 100%;
+  width: 50px; height: 48px; /* TODO: Remove when Canary is fixed */
 }
 
 #viewer header .ember-link:active img {
