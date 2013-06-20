@@ -131,6 +131,13 @@ App.GistRoute = Ember.Route.extend(App.SandboxRoute, {
 
 (function() {
 
+App.LoadingRoute = Ember.Route.extend();
+
+
+})();
+
+(function() {
+
 App.LocalIndexRoute = Ember.Route.extend({
   beforeModel: function() {
     this.transitionTo('local.js');
@@ -297,6 +304,18 @@ App.FrameView = Ember.View.extend({
       this.notifyPropertyChange('content');
     }
   }
+});
+
+
+})();
+
+(function() {
+
+App.LoadingView = Ember.View.extend({
+  classNames: ['loading-view'],
+  layout: Ember.Handlebars.compile(
+    '<div class="loading-message">{{yield}}</div>'
+  )
 });
 
 
