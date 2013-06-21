@@ -3,10 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title>Ember Sandbox</title>
+
+  <script>
+    (function() {
+    var host = location.hostname;
+
+    if (host !== 'embersandbox.com' && host !== 'localhost') {
+      location = 'http://embersandbox.com/' + location.hash;
+    }
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/libs/normalize.css">
   <link rel="stylesheet" href="css/app.css">
 
-  <script type="text/javascript">
+  <script>
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-11205282-1']);
     _gaq.push(['_trackPageview']);
