@@ -29,22 +29,24 @@
     }
 
     function destroyApps() {
-      $(window).off();
+      Ember.run(function() {
+        $(window).off();
 
-      for (var name in window) {
-        try {
-          var obj = window[name];
+        for (var name in window) {
+          try {
+            var obj = window[name];
 
-          if (obj && obj.constructor === Ember.Application) {
-            obj.destroy();
-            delete window[name];
+            if (obj && obj.constructor === Ember.Application) {
+              obj.destroy();
+              delete window[name];
+            }
+          } catch (error) {
+            console.log(error);
           }
-        } catch (error) {
-          console.log(error);
         }
-      }
 
-      Ember.TEMPLATES = {};
+        Ember.TEMPLATES = {};
+      });
     }
   </script>
 
