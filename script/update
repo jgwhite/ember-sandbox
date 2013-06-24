@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+curl http://builds.emberjs.com/ember-latest.min.js > js/libs/ember.js
