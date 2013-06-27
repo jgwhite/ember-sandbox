@@ -58,6 +58,16 @@ module.exports = function(grunt) {
           'js/app.min.js': ['js/app.js', 'js/templates.js']
         }
       }
+    },
+
+    watch: {
+      app: {
+        files: ['app/**/*'],
+        tasks: ['default'],
+        options: {
+          nospawn: true
+        }
+      }
     }
 
   });
@@ -65,6 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.loadNpmTasks('grunt-neuter');
 
@@ -74,5 +85,10 @@ module.exports = function(grunt) {
     'emberTemplates',
     'concat:deps',
     'uglify:app'
+  ]);
+
+  grunt.registerTask('all', [
+    'default',
+    'uglify:deps'
   ]);
 }
