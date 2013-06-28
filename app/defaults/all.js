@@ -10,8 +10,8 @@ App.DEFAULT_HBS = (
   '<script type="text/x-handlebars">\n' +
   '  <h1>Ember Sandbox</h1>\n\n' +
   '  <nav>\n' +
-  '    {{#linkTo index}}Home{{/linkTo}}\n' +
-  '    {{#linkTo about}}About{{/linkTo}}\n' +
+  '    {{#linkTo "index"}}Home{{/linkTo}}\n' +
+  '    {{#linkTo "about"}}About{{/linkTo}}\n' +
   '  </nav>\n\n' +
   '  {{outlet}}\n' +
   '</script>\n\n' +

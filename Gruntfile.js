@@ -50,10 +50,7 @@ module.exports = function(grunt) {
           'js/deps.min.js': [
             'js/libs/jquery.js',
             'js/libs/handlebars.js',
-            'js/libs/ember.js',
-            'js/libs/base64.js',
-            'js/libs/underscore.js',
-            'js/libs/github.js'
+            'js/libs/ember.js'
           ]
         }
       }

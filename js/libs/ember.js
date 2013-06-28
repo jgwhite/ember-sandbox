@@ -1,5 +1,5 @@
-// Version: v1.0.0-rc.6-29-g956492f
-// Last commit: 956492f (2013-06-28 09:11:50 -0700)
+// Version: v1.0.0-rc.5-113-g720acd8
+// Last commit: 720acd8 (2013-06-22 09:19:49 -0700)
 
 
 (function() {
@@ -156,8 +156,8 @@ Ember.deprecateFunc = function(message, func) {
 
 })();
 
-// Version: v1.0.0-rc.6-29-g956492f
-// Last commit: 956492f (2013-06-28 09:11:50 -0700)
+// Version: v1.0.0-rc.6-36-g1f6f55c
+// Last commit: 1f6f55c (2013-06-28 14:13:04 -0700)
 
 
 (function() {
@@ -17438,7 +17438,7 @@ Ember.View.applyAttributeBindings = function(elem, name, value) {
     }
   } else if (name === 'value' || type === 'boolean') {
     // We can't set properties to undefined or null
-    if (Ember.none(value)) { value = ''; }
+    if (Ember.isNone(value)) { value = ''; }
 
     if (value !== elem.prop(name)) {
       // value and booleans should always be properties
@@ -19885,7 +19885,7 @@ function evaluateMultiPropertyBoundHelper(context, fn, normalizedProperties, opt
 
   view.appendChild(bindView);
 
-  // Assemble liast of watched properties that'll re-render this helper.
+  // Assemble list of watched properties that'll re-render this helper.
   watchedProperties = [];
   for (boundOption in boundOptions) {
     if (boundOptions.hasOwnProperty(boundOption)) {
@@ -26574,7 +26574,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
   }
 
   function args(linkView, router, route) {
-    var passedRouteName = route || linkView.namedRoute, routeName;
+    var passedRouteName = route || get(linkView, 'namedRoute'), routeName;
 
     routeName = fullRouteName(router, passedRouteName);
 
@@ -26715,8 +26715,9 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     active: Ember.computed(function() {
       var router = this.get('router'),
           params = resolvedPaths(this.parameters),
-          currentWithIndex = this.currentWhen + '.index',
-          isActive = router.isActive.apply(router, [this.currentWhen].concat(params)) ||
+          currentWhen = this.currentWhen || get(this, 'namedRoute'),
+          currentWithIndex = currentWhen + '.index',
+          isActive = router.isActive.apply(router, [currentWhen].concat(params)) ||
                      router.isActive.apply(router, [currentWithIndex].concat(params));
 
       if (isActive) { return get(this, 'activeClass'); }
@@ -26766,7 +26767,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
       var router = this.get('router');
       return router.generate.apply(router, args(this, router));
-    })
+    }).property('namedRoute')
   });
 
   LinkView.toString = function() { return "LinkView"; };
@@ -26937,13 +26938,22 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     @return {String} HTML string
   */
   Ember.Handlebars.registerHelper('linkTo', function(name) {
-    var options = [].slice.call(arguments, -1)[0];
-    var params = [].slice.call(arguments, 1, -1);
+    var options = [].slice.call(arguments, -1)[0],
+        params = [].slice.call(arguments, 1, -1);
 
     var hash = options.hash;
+      
+    if (options.types[0] === "ID") {
+      if (Ember.ENV.HELPER_PARAM_LOOKUPS) {
+        hash.namedRouteBinding = name;
+      } else {
+        Ember.deprecate("You provided a quoteless destination route parameter of " + name + " to the linkTo helper. Soon, this will perform a property lookup, rather than be treated as a string. To get rid of this warning, wrap " + name + " in quotes. To opt in to this new behavior, set ENV.HELPER_PARAM_LOOKUPS = true");
+        hash.namedRoute = name;
+      }
+    } else {
+      hash.namedRoute = name;
+    }
 
-    hash.namedRoute = name;
-    hash.currentWhen = hash.currentWhen || name;
     hash.disabledBinding = hash.disabledWhen;
 
     hash.parameters = {
@@ -26954,7 +26964,6 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
     return Ember.Handlebars.helpers.view.call(this, LinkView, options);
   });
-
 });
 
 
@@ -30826,6 +30835,52 @@ Ember.Application.reopen({
 
 
 (function() {
+/**
+ * @module ember
+ * @sub-module ember-testing
+ */
+
+var $ = Ember.$;
+
+/**
+ * Determine whether a checkbox checked using jQuery's "click" method will have
+ * the correct value for its checked property. In some old versions of jQuery
+ * (e.g. 1.8.3) this does not behave correctly.
+ *
+ * If we determine that the current jQuery version exhibits this behavior,
+ * patch it to work correctly as in the commit for the actual fix:
+ * https://github.com/jquery/jquery/commit/1fb2f92.
+ */
+$('<input type="checkbox">')
+  .on('click', function() {
+    if (!this.checked && !$.event.special.click) {
+      $.event.special.click = {
+        // For checkbox, fire native event so checked state will be right
+        trigger: function() {
+          if ( $.nodeName( this, "input" ) && this.type === "checkbox" && this.click ) {
+            this.click();
+            return false;
+          }
+        }
+      };
+    }
+  })
+  .click();
+
+/**
+ * Try again to verify that the patch took effect or blow up.
+ */
+$('<input type="checkbox">')
+  .on('click', function() {
+    Ember.assert("clicked checkboxes should be checked! the jQuery patch didn't work", this.checked);
+  })
+  .click();
+
+})();
+
+
+
+(function() {
 var Test = Ember.Test;
 
 /**
@@ -30938,7 +30993,18 @@ function visit(app, url) {
 
 function click(app, selector, context) {
   var $el = findWithAssert(app, selector, context);
+  Ember.run($el, 'mousedown');
+
+  if ($el.is(':input')) {
+    var type = $el.prop('type');
+    if (type !== 'checkbox' && type !== 'radio' && type !== 'hidden') {
+      Ember.run($el, 'focus');
+    }
+  }
+
+  Ember.run($el, 'mouseup');
   Ember.run($el, 'click');
+
   return wait(app);
 }
 
