@@ -24,38 +24,37 @@ module.exports = function(grunt) {
     },
 
     emberTemplates: {
-      default: {
+      app: {
+        files: {
+          'js/templates.js': ['app/templates/**/*.hbs']
+        },
         options: {
           templateName: function(filename) {
             return filename.replace('app/templates/', '');
           }
-        },
-        files: {
-          'js/templates.js': ['app/templates/**/*.hbs']
         }
-      }
-    },
-
-    concat: {
-      deps: {
-        src: [
-          'js/libs/jquery.js',
-          'js/libs/handlebars.js',
-          'js/libs/ember.js'
-        ],
-        dest: 'js/deps.js'
       }
     },
 
     uglify: {
-      deps: {
-        files: {
-          'js/deps.min.js': ['js/deps.js']
-        }
-      },
       app: {
         files: {
-          'js/app.min.js': ['js/app.js', 'js/templates.js']
+          'js/app.min.js': [
+            'js/app.js',
+            'js/templates.js'
+          ]
+        }
+      },
+      deps: {
+        files: {
+          'js/deps.min.js': [
+            'js/libs/jquery.js',
+            'js/libs/handlebars.js',
+            'js/libs/ember.js',
+            'js/libs/base64.js',
+            'js/libs/underscore.js',
+            'js/libs/github.js'
+          ]
         }
       }
     },
@@ -63,10 +62,7 @@ module.exports = function(grunt) {
     watch: {
       app: {
         files: ['app/**/*'],
-        tasks: ['default'],
-        options: {
-          nospawn: true
-        }
+        tasks: ['app']
       }
     }
 
@@ -79,16 +75,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.loadNpmTasks('grunt-neuter');
 
-  grunt.registerTask('default', [
+  grunt.registerTask('app', [
     'jshint:app',
     'neuter:app',
-    'emberTemplates',
-    'concat:deps',
+    'emberTemplates:app',
     'uglify:app'
   ]);
 
-  grunt.registerTask('all', [
-    'default',
-    'uglify:deps'
-  ]);
+  grunt.registerTask('deps', ['uglify:deps']);
+
+  grunt.registerTask('default', ['app', 'deps']);
 }

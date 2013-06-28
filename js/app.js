@@ -77,25 +77,6 @@ App.DEFAULT_CSS = (
 
 (function() {
 
-App.Router.map(function() {
-  this.resource('local', { path: '' }, function() {
-    this.route('js');
-    this.route('hbs');
-    this.route('css');
-  });
-
-  this.resource('gist', { path: ':user_login/:gist_id' }, function() {
-    this.route('js');
-    this.route('hbs');
-    this.route('css');
-  });
-});
-
-
-})();
-
-(function() {
-
 App.GistIndexRoute = Ember.Route.extend({
   beforeModel: function() {
     this.transitionTo('gist.js', this.modelFor('gist'));
@@ -157,6 +138,25 @@ App.LocalRoute = Ember.Route.extend(App.SandboxRoute, {
       css: localStorage.css || App.DEFAULT_CSS
     });
   }
+});
+
+
+})();
+
+(function() {
+
+App.Router.map(function() {
+  this.resource('local', { path: '' }, function() {
+    this.route('js');
+    this.route('hbs');
+    this.route('css');
+  });
+
+  this.resource('gist', { path: ':user_login/:gist_id' }, function() {
+    this.route('js');
+    this.route('hbs');
+    this.route('css');
+  });
 });
 
 
