@@ -7,16 +7,6 @@ App = Ember.Application.create();
 
 (function() {
 
-App.EditorResourceController = Ember.ObjectController.extend({
-  needs: ['editor'],
-  contentBinding: 'controllers.editor.content'
-});
-
-
-})();
-
-(function() {
-
 App.SandboxRoute = Ember.Mixin.create({
   setupController: function(controller, model) {
     this._super(controller, model);
@@ -77,17 +67,6 @@ App.DEFAULT_CSS = (
 
 (function() {
 
-App.GistIndexRoute = Ember.Route.extend({
-  beforeModel: function() {
-    this.transitionTo('gist.js', this.modelFor('gist'));
-  }
-});
-
-
-})();
-
-(function() {
-
 App.GistRoute = Ember.Route.extend(App.SandboxRoute, {
   model: function(params) {
     return $.getJSON('https://api.github.com/gists/' + params.gist_id)
@@ -107,23 +86,24 @@ App.GistRoute = Ember.Route.extend(App.SandboxRoute, {
   }
 });
 
+App.GistIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('gist.js', this.modelFor('gist'));
+  }
+});
+
+App.GistJsRoute =
+App.GistHbsRoute =
+App.GistCssRoute = Ember.Route.extend({
+  model: function() { return this.modelFor('gist'); }
+});
+
 
 })();
 
 (function() {
 
 App.LoadingRoute = Ember.Route.extend();
-
-
-})();
-
-(function() {
-
-App.LocalIndexRoute = Ember.Route.extend({
-  beforeModel: function() {
-    this.transitionTo('local.js');
-  }
-});
 
 
 })();
@@ -138,6 +118,18 @@ App.LocalRoute = Ember.Route.extend(App.SandboxRoute, {
       css: localStorage.css || App.DEFAULT_CSS
     });
   }
+});
+
+App.LocalIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('local.js');
+  }
+});
+
+App.LocalJsRoute =
+App.LocalHbsRoute =
+App.LocalCssRoute = Ember.Route.extend({
+  model: function() { return this.modelFor('local'); }
 });
 
 
@@ -171,27 +163,6 @@ App.Sandbox = Ember.Object.extend();
 
 (function() {
 
-App.GistCssController = App.EditorResourceController.extend();
-
-
-})();
-
-(function() {
-
-App.GistHbsController = App.EditorResourceController.extend();
-
-
-})();
-
-(function() {
-
-App.GistJsController = App.EditorResourceController.extend();
-
-
-})();
-
-(function() {
-
 App.LocalController = Ember.ObjectController.extend({
   jsDidChange: function() {
     localStorage.js = this.get('js');
@@ -205,27 +176,6 @@ App.LocalController = Ember.ObjectController.extend({
     localStorage.css = this.get('css');
   }.observes('css')
 });
-
-
-})();
-
-(function() {
-
-App.LocalCssController = App.EditorResourceController.extend();
-
-
-})();
-
-(function() {
-
-App.LocalHbsController = App.EditorResourceController.extend();
-
-
-})();
-
-(function() {
-
-App.LocalJsController = App.EditorResourceController.extend();
 
 
 })();

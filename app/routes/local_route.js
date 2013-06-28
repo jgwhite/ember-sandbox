@@ -7,3 +7,15 @@ App.LocalRoute = Ember.Route.extend(App.SandboxRoute, {
     });
   }
 });
+
+App.LocalIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('local.js');
+  }
+});
+
+App.LocalJsRoute =
+App.LocalHbsRoute =
+App.LocalCssRoute = Ember.Route.extend({
+  model: function() { return this.modelFor('local'); }
+});

@@ -16,3 +16,15 @@ App.GistRoute = Ember.Route.extend(App.SandboxRoute, {
     return model.getProperties('user_login', 'gist_id');
   }
 });
+
+App.GistIndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('gist.js', this.modelFor('gist'));
+  }
+});
+
+App.GistJsRoute =
+App.GistHbsRoute =
+App.GistCssRoute = Ember.Route.extend({
+  model: function() { return this.modelFor('gist'); }
+});
