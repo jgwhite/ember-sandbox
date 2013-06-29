@@ -61,11 +61,28 @@ module.exports = function(grunt) {
         files: ['app/**/*'],
         tasks: ['app']
       }
+    },
+
+    connect: {
+      app: {
+        options: {
+          port: 4000,
+          base: '.',
+          keepalive: true
+        }
+      }
+    },
+
+    concurrent: {
+      app: ['watch', 'connect'],
+      options: { logConcurrentOutput: true }
     }
 
   });
 
+  grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -80,6 +97,8 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('deps', ['uglify:deps']);
+
+  grunt.registerTask('serve', ['concurrent:app']);
 
   grunt.registerTask('default', ['app', 'deps']);
 }
