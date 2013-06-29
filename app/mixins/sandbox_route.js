@@ -7,6 +7,6 @@ App.SandboxRoute = Ember.Mixin.create({
 
   renderTemplate: function() {
     this.render(this.routeName + '/nav', { outlet: 'nav' });
-    this.render();
+    this.render(this.routeName + '/main');
   }
 });
