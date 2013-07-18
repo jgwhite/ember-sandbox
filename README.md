@@ -8,3 +8,7 @@ A little live-editor for experimenting with Ember, written in Ember.
 * [Handlebars](http://handlebarsjs.com)
 * [jQuery](http://jquery.com)
 * [ACE](http://ace.ajax.org)
+
+## License
+
+Licensed under the MIT license - see [LICENSE.md](LICENSE.md).
