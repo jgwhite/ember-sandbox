@@ -5,6 +5,8 @@ App.Router.map(function() {
     this.route('css');
   });
 
+  this.resource('gists');
+
   this.resource('gist', { path: ':user_login/:gist_id' }, function() {
     this.route('js');
     this.route('hbs');

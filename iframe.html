@@ -23,15 +23,12 @@
       Ember.run(function() {
         $('#css').html(data.css);
         $('body').html(data.hbs);
-
         eval(data.js);
       });
     }
 
     function destroyApps() {
       Ember.run(function() {
-        $(window).off();
-
         for (var name in window) {
           try {
             var obj = window[name];
@@ -45,6 +42,7 @@
           }
         }
 
+        $(window).off();
         Ember.TEMPLATES = {};
       });
     }

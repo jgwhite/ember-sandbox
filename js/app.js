@@ -8,6 +8,7 @@ App = Ember.Application.create();
 (function() {
 
 App.SandboxRoute = Ember.Mixin.create({
+
   setupController: function(controller, model) {
     this._super(controller, model);
     this.controllerFor('editor', model).set('content', model);
@@ -18,6 +19,7 @@ App.SandboxRoute = Ember.Mixin.create({
     this.render(this.routeName + '/nav', { outlet: 'nav' });
     this.render(this.routeName + '/main');
   }
+
 });
 
 
@@ -67,35 +69,65 @@ App.DEFAULT_CSS = (
 
 (function() {
 
+App.ApplicationRoute = Ember.Route.extend({
+
+  beforeModel: function(transition) {
+    this.controllerFor('user').set('content', App.User.create());
+    this.controllerFor('viewer').set('content', App.Sandbox.create());
+  }
+
+});
+
+
+})();
+
+(function() {
+
 App.GistRoute = Ember.Route.extend(App.SandboxRoute, {
-  model: function(params) {
-    return $.getJSON('https://api.github.com/gists/' + params.gist_id)
-    .then(function(gist) {
-      return App.Sandbox.create({
-        user_login: gist.user.login,
-        gist_id: gist.id,
-        js: gist.files['app.js'].content,
-        hbs: gist.files['templates.html'].content,
-        css: gist.files['style.css'].content
-      });
-    });
-  },
 
   serialize: function(model) {
-    return model.getProperties('user_login', 'gist_id');
+    return {
+      user_login: model.get('userLogin'),
+      gist_id: model.get('id')
+    };
+  },
+
+  setupController: function(controller, model) {
+    this._super(controller, model);
   }
+
 });
 
 App.GistIndexRoute = Ember.Route.extend({
+
   beforeModel: function() {
-    this.transitionTo('gist.js', this.modelFor('gist'));
+    this.transitionTo('gist.js');
   }
+
 });
 
 App.GistJsRoute =
 App.GistHbsRoute =
 App.GistCssRoute = Ember.Route.extend({
   model: function() { return this.modelFor('gist'); }
+});
+
+
+})();
+
+(function() {
+
+App.GistsRoute = Ember.Route.extend({
+
+  model: function() {
+    return this.controllerFor('user').get('gists');
+  },
+
+  renderTemplate: function() {
+    this.render('gists/nav', { outlet: 'nav' });
+    this.render('gists/main');
+  }
+
 });
 
 
@@ -144,6 +176,8 @@ App.Router.map(function() {
     this.route('css');
   });
 
+  this.resource('gists');
+
   this.resource('gist', { path: ':user_login/:gist_id' }, function() {
     this.route('js');
     this.route('hbs');
@@ -156,7 +190,101 @@ App.Router.map(function() {
 
 (function() {
 
+App.Gist = Ember.Object.extend({
+
+  userLoginBinding: 'user.login',
+
+  js: function() {
+    return this._getFileContent('app.js');
+  }.property('files.@each'),
+
+  hbs: function() {
+    return this._getFileContent('templates.html');
+  }.property('files.@each'),
+
+  css: function() {
+    return this._getFileContent('style.css');
+  }.property('files.@each'),
+
+  then: function(resolve, reject) {
+    return this.load().then(resolve, reject);
+  },
+
+  load: function() {
+    var self = this;
+
+    if (!this.promise) {
+      this.promise = self._fetchData().then(function(gist) {
+        self.setProperties(gist);
+        self.then = self.promise = null;
+        return self;
+      });
+    }
+
+    return this.promise;
+  },
+
+  _fetchData: function() {
+    return $.getJSON('https://api.github.com/gists/' + this.get('id'));
+  },
+
+  _getFileContent: function(file) {
+    var data = this.get('files')[file];
+    return data && data.content;
+  }
+
+});
+
+App.Gist.reopenClass({
+
+  find: function(id) {
+    return App.Gist.create({ id: id });
+  }
+
+});
+
+
+})();
+
+(function() {
+
 App.Sandbox = Ember.Object.extend();
+
+
+})();
+
+(function() {
+
+App.User = Ember.Object.extend({
+
+  login: 'jgwhite',
+
+  gists: function() {
+    return this._getJSON('gists').then(function(gists) {
+      return gists.map(function(gist) {
+        return App.Gist.create(gist);
+      });
+    });
+  }.property(),
+
+  _getJSON: function(path) {
+    return $.getJSON(
+      'https://api.github.com/users/' + this.get('login') + '/' + path
+    );
+  }
+
+});
+
+
+})();
+
+(function() {
+
+App.GistsController = Ember.ArrayController.extend({
+
+  sandboxGists: Ember.computed.equal('isSandbox', true)
+
+});
 
 
 })();
@@ -176,6 +304,20 @@ App.LocalController = Ember.ObjectController.extend({
     localStorage.css = this.get('css');
   }.observes('css')
 });
+
+
+})();
+
+(function() {
+
+App.UserController = Ember.ObjectController.extend();
+
+
+})();
+
+(function() {
+
+App.ViewerController = Ember.ObjectController.extend();
 
 
 })();
@@ -226,6 +368,7 @@ App.AceView = Ember.View.extend({
 (function() {
 
 App.FrameView = Ember.View.extend({
+
   tagName: 'iframe',
   src: 'iframe.html',
   classNames: ['pane', 'frame'],
@@ -254,6 +397,7 @@ App.FrameView = Ember.View.extend({
       this.notifyPropertyChange('content');
     }
   }
+
 });
 
 

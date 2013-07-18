@@ -1,4 +1,5 @@
 App.FrameView = Ember.View.extend({
+
   tagName: 'iframe',
   src: 'iframe.html',
   classNames: ['pane', 'frame'],
@@ -27,4 +28,5 @@ App.FrameView = Ember.View.extend({
       this.notifyPropertyChange('content');
     }
   }
+
 });

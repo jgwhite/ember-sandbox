@@ -1,0 +1,7 @@
+<ul>
+  {{#each gist in controller}}
+    <li>
+      {{#linkTo "gist" gist}}{{gist.description}}{{/linkTo}}
+    </li>
+  {{/each}}
+</ul>
