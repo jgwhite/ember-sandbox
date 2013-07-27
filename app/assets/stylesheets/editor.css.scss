@@ -1,0 +1,189 @@
+.pane {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  overflow: hidden;
+}
+
+.global {
+  position: fixed;
+}
+
+.pane.global {
+  bottom: 29px;
+}
+
+.pane header {
+  position: absolute;
+  top: 0; right: 0; bottom: auto; left: 0;
+  padding: 16px;
+
+  font-weight: normal;
+  line-height: 1;
+  text-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 0px;
+  vertical-align: middle;
+
+  background: -webkit-linear-gradient(
+    #ff9e7c 0%, #ff9e7c 2%,
+    #fe875e 2%,
+    #df5239 98%,
+    #aa412f 98%, #aa412f 100%
+  );
+  background: -moz-linear-gradient(
+    #ff9e7c 0%, #ff9e7c 2%,
+    #fe875e 2%,
+    #df5239 98%,
+    #aa412f 98%, #aa412f 100%
+  );
+  background: linear-gradient(
+    #ff9e7c 0%, #ff9e7c 2%,
+    #fe875e 2%,
+    #df5239 98%,
+    #aa412f 98%, #aa412f 100%
+  );
+  color: white;
+
+  z-index: 2;
+}
+
+.pane header .title {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.pane header nav {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  padding: 1em;
+  text-align: center;
+}
+
+.pane header nav a {
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 3px 8px 2px 8px;
+  margin: -4px 0 -3px 0;
+
+  font-family: Menlo, sans-serif;
+  font-size: 0.9em;
+  text-decoration: none;
+
+  color: rgb(246, 236, 232);
+}
+
+.pane header nav a.active {
+  border: 1px solid rgb(146, 60, 46);
+  border-radius: 3px;
+
+  background: rgba(0, 0, 0, 0.2);
+  color: rgb(51, 25, 21);
+  text-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
+
+  box-shadow:
+    rgba(255, 255, 255, 0.14902) 0px 1px 0px 0px,
+    inset rgba(0, 0, 0, 0.168627) 0px 1px 1px 0px;
+}
+
+.pane .main {
+  position: absolute;
+  top: 3em; right: 0; bottom: 0; left: 0;
+  overflow: auto;
+  z-index: 1;
+}
+
+#editor {
+  right: auto;
+  width: 38.2%;
+}
+
+#editor header {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#editor .main {
+  border-right: 1px solid rgb(209, 209, 209);
+}
+
+#viewer {
+  left: 38.2%;
+}
+
+#viewer header .ember-link {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 50px;
+  height: 48px;
+
+  background-image: image-url('tomster.png');
+}
+
+#viewer header .ember-link img {
+  display: block;
+  position: relative;
+  margin: 0;
+  width: auto; height: 100%;
+  width: 50px; height: 48px; /* TODO: Remove when Canary is fixed */
+}
+
+#viewer header .ember-link:active {
+  opacity: 0.75;
+}
+
+.ace-view {
+  display: block;
+  width: 100%; height: 100%;
+}
+
+.frame {
+  border: none;
+  width: 100%; height: 100%;
+}
+
+footer {
+  position: fixed;
+  top: auto; right: 0; bottom: 0; left: 0;
+  border-top: 1px solid rgb(209, 209, 209);
+  padding: 8px 16px;
+
+  font-size: 12px;
+  line-height: 1;
+  text-align: right;
+
+  background: #f6f6f6;
+}
+
+footer a {
+  color: rgb(180, 180, 180);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: rgb(80, 80, 80);
+}
+
+footer a:active {
+  color: rgb(140, 140, 140);
+}
+
+.loading-view {
+  display: table;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 10;
+  width: 100%; height: 100%;
+
+  background: rgba(255, 255, 255, 0.9);
+}
+.loading-message {
+  display: table-cell;
+  position: relative;
+  width: 100%; height: 100%;
+  vertical-align: middle;
+  text-align: center;
+
+  font-size: 2em;
+  font-weight: 100;
+
+  color: black;
+}

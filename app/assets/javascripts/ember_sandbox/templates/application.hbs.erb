@@ -1,0 +1,26 @@
+<section class="pane global" id="editor">
+  <header>
+    <span class="title">Editor</span>
+    <nav>
+      {{outlet "nav"}}
+    </nav>
+  </header>
+  <section class="main">
+    {{outlet}}
+  </section>
+</section>
+
+<section class="pane global" id="viewer">
+  <header>
+    <span class="title">Viewer</span>
+    <a href="http://emberjs.com" class="ember-link">
+    </a>
+  </header>
+  <section class="main">
+    {{render "viewer"}}
+  </section>
+</section>
+
+<footer>
+  <a href="http://github.com/jgwhite/ember-sandbox">View the source on GitHub &rarr;</a>
+</footer>
