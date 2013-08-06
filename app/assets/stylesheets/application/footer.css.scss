@@ -1,0 +1,29 @@
+.app-footer {
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  border-top: 1px solid rgb(209, 209, 209);
+  padding: 8px 16px;
+
+  font-size: 12px;
+  line-height: 1;
+  text-align: right;
+
+  background: #f6f6f6;
+}
+
+.app-footer a {
+  color: rgb(180, 180, 180);
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  color: rgb(80, 80, 80);
+}
+
+.app-footer a:active {
+  color: rgb(140, 140, 140);
+}

@@ -1,0 +1,68 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  height: 48px;
+  left: 0;
+  right: 0;
+
+  padding: 16px;
+  @extend %orange-header;
+}
+
+.app-header .title {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.app-header nav {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: 48px;
+  padding: 1em;
+  text-align: center;
+}
+
+.app-header nav a {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 3px 8px 2px 8px;
+  margin: -4px 0 -3px 0;
+
+  font-family: Menlo, sans-serif;
+  font-size: 0.9em;
+  text-decoration: none;
+
+  color: rgb(246, 236, 232);
+}
+
+.app-header nav a.active {
+  border: 1px solid rgb(146, 60, 46);
+  border-radius: 3px;
+
+  background: rgba(0, 0, 0, 0.2);
+  color: rgb(51, 25, 21);
+  text-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
+
+  box-shadow:
+    rgba(255, 255, 255, 0.14902) 0px 1px 0px 0px,
+    inset rgba(0, 0, 0, 0.168627) 0px 1px 1px 0px;
+}
+
+.app-header .ember-link {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 50px;
+  height: 48px;
+
+  background-image: image-url('tomster.png');
+}
+
+.app-header .ember-link:active {
+  opacity: 0.75;
+}

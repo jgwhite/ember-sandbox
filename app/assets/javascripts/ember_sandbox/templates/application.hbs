@@ -1,26 +1,26 @@
-<section class="pane global" id="editor">
-  <header>
-    <span class="title">Editor</span>
-    <nav>
-      {{outlet "nav"}}
-    </nav>
-  </header>
-  <section class="main">
-    {{outlet}}
-  </section>
+<header class="app-header">
+  <span class="title">Ember Sandbox</span>
+  
+  <nav>
+  {{#each controllers.panes}}{{pane-toggle pane=this}}{{/each}}
+  </nav>
+
+  <a href="http://emberjs.com" class="ember-link"></a>
+</header>
+
+<section class="pane-container">
+  {{#each controllers.panes}}
+    {{#if enabled}}
+      {{log controllers.panes.width}}
+      {{#sandbox-pane width=controllers.panes.width}}
+        {{sandbox-editor sandbox=sandbox type=id }}
+      {{/sandbox-pane}}
+    {{/if}}
+  {{/each}}
 </section>
 
-<section class="pane global" id="viewer">
-  <header>
-    <span class="title">Viewer</span>
-    <a href="http://emberjs.com" class="ember-link">
-    </a>
-  </header>
-  <section class="main">
-    {{render "viewer"}}
-  </section>
-</section>
+{{!sandbox-viewer}}
 
-<footer>
+<footer class="app-footer">
   <a href="http://github.com/jgwhite/ember-sandbox">View the source on GitHub &rarr;</a>
 </footer>

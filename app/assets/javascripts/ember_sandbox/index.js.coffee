@@ -9,4 +9,6 @@
 #= require_tree ./helpers
 #= require ./router
 
+Ember.ENV.HELPER_PARAM_LOOKUPS = true
+
 window.ES = window.EmberSandbox = Ember.Application.create()
