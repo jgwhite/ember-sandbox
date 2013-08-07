@@ -1,25 +1,13 @@
 <header class="app-header">
   <span class="title">Ember Sandbox</span>
-  
-  <nav>
-  {{#each controllers.panes}}{{pane-toggle pane=this}}{{/each}}
-  </nav>
-
   <a href="http://emberjs.com" class="ember-link"></a>
 </header>
 
 <section class="pane-container">
-  {{#each controllers.panes}}
-    {{#if enabled}}
-      {{log controllers.panes.width}}
-      {{#sandbox-pane width=controllers.panes.width}}
-        {{sandbox-editor sandbox=sandbox type=id }}
-      {{/sandbox-pane}}
-    {{/if}}
-  {{/each}}
+  {{render 'fileManager'}}
+  {{render 'editor'}}
+  {{render 'runner'}}
 </section>
-
-{{!sandbox-viewer}}
 
 <footer class="app-footer">
   <a href="http://github.com/jgwhite/ember-sandbox">View the source on GitHub &rarr;</a>

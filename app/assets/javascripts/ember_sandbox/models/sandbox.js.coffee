@@ -1,1 +1,5 @@
-ES.Sandbox = Ember.Object.extend()
+ES.Sandbox = Ember.Object.extend
+  files: null
+
+  init: ->
+    @files = []

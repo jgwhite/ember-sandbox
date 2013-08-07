@@ -1,7 +1,5 @@
 ES.Router.map ->
-  @route "local", path: "/"
+  @resource "local", path: "/", ->
+    @route "edit", path: "/edit/:fileName"
 
-  # @resource "gist", path: ":user_login/:gist_id", ->
-  #   @route "js"
-  #   @route "hbs"
-  #   @route "css"
+  # @route "gist",  path: "/:user_login/:gist_id"

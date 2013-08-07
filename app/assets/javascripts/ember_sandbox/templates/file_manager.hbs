@@ -1,0 +1,11 @@
+<div class="pane file-manager-pane">
+  <div>
+    {{#each controllers.files}}
+      <div>
+        {{#linkTo 'local.edit' this}}
+          {{name}}{{#if isActive}} *{{/if}}
+        {{/linkTo}}
+      </div>
+    {{/each}}
+  </div>
+</div>

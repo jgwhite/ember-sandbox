@@ -1,25 +1,14 @@
-# ES.GistRoute = Ember.Route.extend ES.SandboxRoute,
-#   model: (params) ->
-#     $.getJSON('https://api.github.com/gists/' + params.gist_id)
-#     .then (gist) ->
-#       ES.Sandbox.create
-#         user_login: gist.user.login
-#         gist_id:    gist.id
-#         js:         gist.files['app.js'].content
-#         hbs:        gist.files['templates.html'].content
-#         css:        gist.files['style.css'].content
+ES.GistRoute = Ember.Route.extend
+  model: (params) ->
+    gistURL = "https://api.github.com/gists/#{params.gist_id}"
+    $.getJSON(gistURL).then (gist) ->
+      console.dir gist
+      ES.Sandbox.create
+        codeLang:  "javascript"
+        code:      gist.files['app.js'].content
+        styles:    gist.files['style.css'].content
+        templates: gist.files['templates.html'].content
+        extras:    ""
 
-#   serialize: (model) ->
-#     model.getProperties('user_login', 'gist_id')
-
-
-# ES.GistIndexRoute = Ember.Route.extend
-#   beforeModel: ->
-#     @transitionTo('gist.js', @modelFor('gist'))
-
-
-# ES.GistJsRoute =
-# ES.GistHbsRoute =
-# ES.GistCssRoute = Ember.Route.extend
-#   model: ->
-#     @modelFor('gist')
+  setupController: (controller, model) ->
+    @controllerFor('application').set('activeSandbox', model)
