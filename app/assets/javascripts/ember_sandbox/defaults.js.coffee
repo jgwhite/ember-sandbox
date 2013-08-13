@@ -7,15 +7,15 @@ ES.DEFAULT_SANDBOX.files.push ES.SandboxFile.create
     <!DOCTYPE html>
     <html>
       <head>
-        {{style "normalize"}}
-        {{embed "app.css"}}
+        {{style   "normalize"}}
+        {{style   "app.css"}}
       </head>
       <body>
-        {{script "jquery"     "2.0.3"}}
-        {{script "handlebars" "1.0.0"}}
-        {{script "ember"      "latest"}}
-        {{embed  "templates.html"}}
-        {{embed  "app.js"}}
+        {{script  "jquery"     "2.0.3"}}
+        {{script  "handlebars" "1.0.0"}}
+        {{script  "ember"      "latest"}}
+        {{include "templates.html"}}
+        {{script  "app.js"}}
       </body>
     </html>
     """

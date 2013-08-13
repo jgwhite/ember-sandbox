@@ -1,4 +1,4 @@
-ES.AceEditorView = Ember.View.extend
+ES.AceEditorComponent = Ember.Component.extend
   classNames: [ "ace-view" ]
   theme: "ember"
   focus: true
@@ -8,7 +8,7 @@ ES.AceEditorView = Ember.View.extend
     @_createEditor()
 
   _editorDidChange: ->
-    @set('controller.activeFile.data', @get('aceEditor').getValue())
+    @set('activeFile.data', @get('aceEditor').getValue())
 
   _createEditor: ->
     editor = ace.edit(@get("element"))
@@ -18,19 +18,14 @@ ES.AceEditorView = Ember.View.extend
     editor.setHighlightActiveLine false
     editor.setHighlightGutterLine false
     editor.renderer.setShowGutter false
-
-    # editor.getSelection().clearSelection()
     editor.focus()
+    
     editor.on('change', $.proxy(this, "_editorDidChange"))
 
     @set('aceEditor', editor)
     @_activeFileChanged()
   
   _activeFileChanged: (->
-    @get('aceEditor').setSession(@get('controller.activeFile.session'))
-  ).observes 'controller.activeFile'
-
-
-  # _contentChanged: (->
-  #   @get("controller.aceEditor").setValue @get("content") unless @get('guardingContentObserver')
-  # ).observes 'content'
+    @get('aceEditor').setSession(@get('activeFile.session'))
+    @get('aceEditor').focus()
+  ).observes 'activeFile'
