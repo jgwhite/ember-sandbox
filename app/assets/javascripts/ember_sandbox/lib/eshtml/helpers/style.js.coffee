@@ -7,7 +7,7 @@ Handlebars.registerHelper 'style', (name, version) ->
   if url
     output = """<link rel="stylesheet" href="#{url}">"""
   else
-    file = ESHTML.getSandboxFile(name)
+    file = ES.getSandboxFile(name)
     output = """<style>\n#{file.get('data')}\n</style>"""
     
   new Handlebars.SafeString(output)

@@ -14,3 +14,9 @@ Ember.ENV.HELPER_PARAM_LOOKUPS = true
 # Ember.LOG_BINDINGS = true
 
 window.ES = window.EmberSandbox = Ember.Application.create()
+  # LOG_TRANSITIONS: true
+
+ES.getSandboxFile = (name) ->
+  applicationController = EmberSandbox.__container__.lookup('controller:application')
+  filesController = applicationController.get('controllers.sandbox.files')
+  filesController.findProperty('name', name)

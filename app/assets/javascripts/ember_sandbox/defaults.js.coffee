@@ -13,7 +13,7 @@ ES.DEFAULT_SANDBOX.files.push ES.SandboxFile.create
       <body>
         {{script  "jquery"     "2.0.3"}}
         {{script  "handlebars" "1.0.0"}}
-        {{script  "ember"      "latest"}}
+        {{script  "ember"      "1.0.0-rc.7"}}
         {{include "templates.html"}}
         {{script  "app.js"}}
       </body>

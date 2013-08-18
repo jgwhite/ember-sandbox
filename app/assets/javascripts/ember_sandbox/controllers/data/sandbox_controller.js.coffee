@@ -1,0 +1,1 @@
+ES.SandboxController = Ember.ObjectController.extend()

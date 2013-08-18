@@ -7,7 +7,7 @@ Handlebars.registerHelper 'script', (name, version) ->
   if url
     output = """<script src="#{url}"></script>"""
   else
-    file = ESHTML.getSandboxFile(name)
+    file = ES.getSandboxFile(name)
     output = """<script>\n#{file.get('data')}\n</script>"""
     
   new Handlebars.SafeString(output)

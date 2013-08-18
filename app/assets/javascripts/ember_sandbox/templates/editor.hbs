@@ -1,5 +1,7 @@
 <div class="pane editor-pane">
   <div class="ace-editor-container">
-    {{ace-editor activeFile=activeFile}}
+    {{#if activeFile}}
+      {{ace-editor class="ace-view" session=activeSession didChange="aceEditorDidChange"}}
+    {{/if}}
   </div>
 </div>

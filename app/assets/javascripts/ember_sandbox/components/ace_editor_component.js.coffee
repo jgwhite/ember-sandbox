@@ -1,31 +1,35 @@
 ES.AceEditorComponent = Ember.Component.extend
-  classNames: [ "ace-view" ]
-  theme: "ember"
-  focus: true
-  aceEditor: null
-
-  didInsertElement: ->
-    @_createEditor()
-
-  _editorDidChange: ->
-    @set('activeFile.data', @get('aceEditor').getValue())
-
-  _createEditor: ->
-    editor = ace.edit(@get("element"))
-
-    editor.setTheme "ace/theme/" + @get("theme")
-    editor.setShowFoldWidgets false
-    editor.setHighlightActiveLine false
-    editor.setHighlightGutterLine false
-    editor.renderer.setShowGutter false
-    editor.focus()
+  willDestroyElement: ->
+    @editor.getSession().removeAllListeners('change')
+    @editor.destroy()
     
-    editor.on('change', $.proxy(this, "_editorDidChange"))
+  didInsertElement: ->
+    @editor = ace.edit(@get("element"))
+    @editor.setTheme "ace/theme/ember"
+    @editor.setHighlightActiveLine false
+    @editor.setHighlightGutterLine false
+    @editor.focus()
 
-    @set('aceEditor', editor)
-    @_activeFileChanged()
-  
-  _activeFileChanged: (->
-    @get('aceEditor').setSession(@get('activeFile.session'))
-    @get('aceEditor').focus()
-  ).observes 'activeFile'
+    if @initialSession
+      @set('session', @initialSession)
+      delete @initialSession
+      
+  session: ((key, session) ->
+    return @initialSession = session unless @editor
+    
+    if arguments.length is 1
+      @editor.getSession()
+    else
+      if session
+        session.on 'change', (event) =>
+          event.editor = @editor
+          event.session = session
+          Ember.run.once(@, @sendAction, 'didChange', event)
+
+        @editor.getSession().removeAllListeners('change')
+        @editor.setSession(session)
+        
+        @editor.focus()
+        @editor.clearSelection()
+      @editor.getSession()
+  ).property()

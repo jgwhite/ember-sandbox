@@ -1,13 +1,12 @@
 ES.EditorController = Ember.Controller.extend
-  needs: [ 'application']
-  aceInstance: null
-  activeFile: null
+  needs: ['aceSessions']
 
-  openFile: (sandboxFile) ->
-    unless sandboxFile.get('session')
-      session = new ace.EditSession(sandboxFile.get('data'), "ace/mode/" + sandboxFile.get('mode'))
-      session.setUseSoftTabs true
-      session.setTabSize 2
-      sandboxFile.set('session', session)
-
+  editFile: (sandboxFile) ->
     @set('activeFile', sandboxFile)
+
+  activeSession: (->
+    @get('controllers.aceSessions').getSession(@get('activeFile'))
+  ).property('activeFile')
+
+  aceEditorDidChange: (event) ->
+    @set('activeFile.data', event.session.getValue())

@@ -3,4 +3,4 @@ ES.LocalRoute = Ember.Route.extend
     ES.DEFAULT_SANDBOX
 
   setupController: (controller, sandbox) ->
-    @controllerFor('application').set('sandbox', sandbox)
+    controller.send('setSandbox', sandbox)

@@ -7,4 +7,4 @@ ES.LocalEditRoute = Ember.Route.extend
       return file if file.name is params.fileName
 
   setupController: (controller, sandboxFile) ->
-    @controllerFor('application').send('openFile', sandboxFile)
+    controller.send('editFile', sandboxFile)

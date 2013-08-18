@@ -1,9 +1,13 @@
 <div class="pane file-manager-pane">
+  {{#linkTo 'local'}}
+    Hide editor
+  {{/linkTo}}
+  <hr>
   <div>
-    {{#each controllers.files}}
+    {{#each controllers.sandboxFiles}}
       <div>
         {{#linkTo 'local.edit' this}}
-          {{name}}{{#if isActive}} *{{/if}}
+          {{name}}
         {{/linkTo}}
       </div>
     {{/each}}
