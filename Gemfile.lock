@@ -28,7 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
-    atomic (1.1.12)
+    atomic (1.1.13)
     barber (0.4.2)
       ember-source
       execjs
@@ -51,7 +51,7 @@ GEM
       ember-source (>= 1.0.0.rc2.2)
       execjs (>= 1.2)
       railties (>= 3.1)
-    ember-source (1.0.0.rc6.4)
+    ember-source (1.0.0.rc7)
       handlebars-source (= 1.0.12)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -61,7 +61,7 @@ GEM
       thor (>= 0.13.6)
     handlebars-source (1.0.12)
     hike (1.2.3)
-    i18n (0.6.4)
+    i18n (0.6.5)
     kgio (2.8.0)
     libv8 (3.11.8.17)
     mail (2.5.4)
@@ -69,7 +69,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     minitest (4.7.5)
-    multi_json (1.7.8)
+    multi_json (1.7.9)
     pg (0.16.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -145,7 +145,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   ember-rails
   foreman
-  handlebars-source (~> 1.0.12)
   pg
   rails (= 4.0.0)
   rails_12factor
