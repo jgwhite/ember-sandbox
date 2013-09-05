@@ -12,7 +12,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier',     '>= 1.3.0'
 
 gem 'ember-rails'
-gem 'ember-source', '>= 1.0.0.rc6.3'
 
 gem 'therubyracer'
 

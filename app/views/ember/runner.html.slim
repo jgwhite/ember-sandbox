@@ -5,9 +5,6 @@ html
     meta charset="utf-8"
     = stylesheet_link_tag "normalize", media: "all"
     style#css
-    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"
-    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.4/handlebars.js"
-    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.0-rc.6/ember.js"
-    = javascript_include_tag "runner"
+    = javascript_include_tag "dependencies", "runner"
   body
     / empty

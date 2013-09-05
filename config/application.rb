@@ -27,6 +27,7 @@ module EmberSandbox
 
     config.assets.precompile -= [/(?:\/|\\|\A)application\.(css|js)$/]
     config.assets.precompile += ['normalize.css']
+    config.assets.precompile += ['dependencies.js']
     config.assets.precompile += ['editor.js', 'editor.css']
     config.assets.precompile += ['runner.js']
 
