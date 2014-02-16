@@ -22,13 +22,13 @@ ES.DEFAULT_HBS =
   {{outlet}}
 </script>
 
-<script type="text/x-handlebars" data-template-name="index">
+<script type="text/x-handlebars" id="index">
   <h2>Welcome</h2>
   <p>Edit the code on the left and see the result right here.</p>
   <p>All your code is kept in local storage, so it’ll be here when you get back.</p>
 </script>
 
-<script type="text/x-handlebars" data-template-name="about">
+<script type="text/x-handlebars" id="about">
   <h2>About</h2>
   <p>A little live editor for Ember, written in Ember.</p>
 </script>
