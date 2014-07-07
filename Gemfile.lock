@@ -149,7 +149,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   ember-rails (~> 0.15.0)
-  ember-source (~> 1.5.0)
+  ember-source (~> 1.5.1.1)
   foreman (~> 0.63.0)
   libv8 (~> 3.16.14.3)
   pg (~> 0.16.0)

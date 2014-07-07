@@ -3,7 +3,7 @@ ES.GistRoute = Ember.Route.extend ES.SandboxRoute,
     $.getJSON('https://api.github.com/gists/' + params.gist_id)
     .then (gist) ->
       ES.Sandbox.create
-        user_login: gist.user.login
+        user_login: gist.owner.login
         gist_id:    gist.id
         js:         gist.files['app.js'].content
         hbs:        gist.files['templates.html'].content
