@@ -1,5 +1,6 @@
 didReceiveMessage = (event) ->
-  loadData event.data
+  if event.data.name == "embersandbox"
+    loadData event.data
 
 loadData = (data) ->
   destroyApps()

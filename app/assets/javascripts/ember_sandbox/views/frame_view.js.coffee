@@ -3,6 +3,7 @@ ES.FrameView = Ember.View.extend
   src: "runner.html"
   classNames: [ "pane", "frame" ]
   attributeBindings: [ "src" ]
+  name: "embersandbox"
 
   contentDidChange: (->
     return  unless @get("isReady")
@@ -13,8 +14,8 @@ ES.FrameView = Ember.View.extend
   ).observes("content")
 
   content: (->
-    @getProperties "js", "hbs", "css"
-  ).property("js", "hbs", "css")
+    @getProperties "name", "js", "hbs", "css"
+  ).property("name", "js", "hbs", "css")
 
   didInsertElement: ->
     $(window).on "message", $.proxy(this, "messageReceived")
